@@ -69,3 +69,20 @@ With the ETF tickers that remain, I will use `quantmod` to create a vector of da
 
 **Step 6**:  
 Write a linear programming algorithm to minimize the sum of correlations in a set of 5. The objective function will be to minimize the sum of correlations between 5 ETFs. I will create a correlation matrix with the optmial solution to minimizing correlation. This will compare well with the random result from Step 5. 
+
+### Potential Problems
+
+A lot of this project is ambitious for me, so instead of pursuing the idealized version, I may have to do a smaller, less ambitious version. These are potential problems I may run into (or already have run into) and what I can do about it so that I still have a project.   
+
+* Canadian ETF data is *less* available. With initial experimentation with `quantmod` it appears the google finance hidden API (based on a url for a csv download) doesn't work well for getting the Canadian ETF historical data. I may have to restrict the project to American ETFs (for the time being). If I have enough time, I could learn websraping to get the existing data from google finance without using their hidden API.  
+* Calculating Annual Rate of Return manually is more work than just using the already calculated data set from iShares complete with metadata. As a starting point it makes more sense to just work with this data set.  
+* Linear Programming may be an ambitious addition within the time constraints. This project still has validity in just generating the correlation matrix and running some visualizations and analyses on returns for lower correlation ETFs as they relate to well correlated.  
+
+
+### Future Ideas
+
+Quantitative correlation is not the whole picture. After completing the project above (including the linear programming) for all of Canadian ETFs, there are a few directions I could take it in. 
+
+1) I could tweak the constrains in the linear program to get different sets of 5, and then take this short list to people with financial experience and understanding to pick the best ETFs within them. 
+
+2) I could make a webapp for Canadian ETF correlations as it's an unmet need, even if it's just to generate the correlation matrix.  
