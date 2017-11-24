@@ -1,5 +1,6 @@
 #! /usr/bin/env Rscript
-# etf_select_risk_metric.R
+# ishares_metadata_cleaner.R
+# Daniel Raff Nov, 2017
 
 # This script reads in data from data/etf_metadata_ishares.csv, and cleans it
 # This involves selecting just monthly Net Asset Values for the past 10 years
