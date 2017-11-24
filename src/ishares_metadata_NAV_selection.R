@@ -14,6 +14,7 @@
 # Usage: Rscript ishares_metadata_NAV_selection.R
 
 library(tidyverse)
+library(forcats)
 
 ishares <- read_csv("results/etf_metadata_ishares_clean.csv")
 
@@ -28,6 +29,8 @@ ishares_nav_values_not_missing <- tibble(time_elapse = c("total", "year_to_date"
                                        sum(!is.na(ishares[[x]]))/
                                          sum(!is.na(ishares[[1]]))
                                   }))
+ishares_nav_values_not_missing$time_elapse <- factor(ishares_nav_values_not_missing$time_elapse)
+
 
 
 write_csv(ishares_nav_values_not_missing, "results/ishares_nav_values_not_missing.csv")
