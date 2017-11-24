@@ -85,4 +85,6 @@ Quantitative correlation is not the whole picture. After completing the project 
 
 1) I could tweak the constrains in the linear program to get different sets of 5, and then take this short list to people with financial experience and understanding to pick the best ETFs within them. 
 
-2) I could make a webapp for Canadian ETF correlations as it's an unmet need, even if it's just to generate the correlation matrix.  
+2) I could make a webapp for Canadian ETF correlations as it's an unmet need, even if it's just to generate the correlation matrix. 
+
+3) Instead of looking at correlation, I can look at beta as it relates to the S&P 500. I can use this as a threshold instead of NAVs, as this is a better measure of risk. If the markets aren't performing well, something with a lower beta as it relates to S&P 500 will be good for hedging my bets. The problem is that this requires a high R<sup>2</sup> which is the opposite of what I'm optimizing for, so this would actually change the whole analysis and would mean I would try to try to optimize for mean beta to be 1 within the set, while trying to maximize for NAVs. 
