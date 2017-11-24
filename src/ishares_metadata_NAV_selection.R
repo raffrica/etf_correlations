@@ -1,31 +1,28 @@
 #! /usr/bin/env Rscript
-# etf_select_risk_metric.R
+# ishares_metadata_NAV_selection.R
+# Daniel Raff, November 2017
 
-# This script reads in data from data/etf_metadata_ishares.csv, chooses an
-# appropriate Net Asset Value and generates Betas as they relate to the
-# iShares Core S&P 500 ETF (IVV)
+# This script reads in cleaned data from results/etf_metadata_ishares_clean.csv, 
+# and creates a dataframe comparing how much NAV data is lost with increasing 
+# length of time that the monthly NAV spans (eg: Year to Date vs. 1 Year, vs. 10 years)
+
+# Usage: Rscript ishares_metadata_NAV_selection.R
 
 library(tidyverse)
-library(quantmod)
 
-ishares <- read_csv("data/etf_metadata_ishares.csv")
+ishares <- read_csv("results/etf_metadata_ishares_clean.csv")
 
-# Look at data
-View(ishares)
+names(ishares)
 
-# Due to the nature of the csv, the 1st row (after header) is still a subheader
-# with important information.
+ishares_nav_values_not_missing <- tibble(time_elapse = c("total", "year_to_date",
+"1_year", "3_years", "5_years", "10_years"),
+       num_etfs_remaining = map_dbl(names(ishares), 
+                                    function (x) sum(!is.na(ishares[[x]]))),
+       prop_etfs_remaining = map_dbl(names(ishares), 
+                                     function (x){
+                                       sum(!is.na(ishares[[x]]))/
+                                         sum(!is.na(ishares[[1]]))
+                                  }))
 
-# Looking through this, I've renamed the variables and kept monthly 
-# Net Asset Values (NAV) over a given time frame.
 
-ishares <- ishares %>% 
-  rename(nav_monthly_ytd = X23, # NAV of year to date
-         nav_monthly_1_year = X24, # past year
-         nav_monthly_3_year = X25, # past 3 years
-         nav_monthly_5_year = X26, 
-         nav_monthly_10_year = X27) %>% 
-  select(Ticker, Name, nav_monthly_ytd, nav_monthly_1_year, nav_monthly_3_year,
-         nav_monthly_5_year,nav_monthly_10_year)
-
-ishares
+write_csv(ishares_nav_values_not_missing, "results/ishares_nav_values_not_missing.csv")
