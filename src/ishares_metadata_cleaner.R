@@ -6,7 +6,8 @@
 # This involves selecting just monthly Net Asset Values for the past 10 years
 # and then making those variables workable (getting appropriate NAs and changing types)
 
-# Usage: Rscript src/ishares_metadata_cleaner.R https://github.com/raffrica/etf_correlations/blob/master/data/etf_metadata_ishares.csv results/etf_metadata_ishares_clean.csv
+# Usage: Rscript src/ishares_metadata_cleaner.R https://raw.githubusercontent.com/raffrica/etf_correlations/master/data/etf_metadata_ishares.csv results/etf_metadata_ishares_clean.csv
+
 
 
 # Import libraries and packages
@@ -15,17 +16,15 @@ suppressMessages(library(tidyverse))
 suppressMessages(library(purrr))
 
 # Read in Command Line Arguments
-args <- commandArgs(trailingOnly = FALSE)
-input_file <- as.character(args[1])
-output_name <- as.character(args[2])
-
-
+args <- commandArgs(trailingOnly = TRUE)
+input_file <- args[1]
+output_name <- args[2]
 
 # main function is to clean dataset
 
 main <- function(){
   # read in data
-  ishares <- read_csv("https://raw.githubusercontent.com/raffrica/etf_correlations/master/data/etf_metadata_ishares.csv")
+  ishares <- read_csv(input_file)
   
   # Due to the nature of the csv, the 1st row (after header) is still a subheader
   # with important information.
@@ -65,9 +64,9 @@ main <- function(){
                                                     nav_monthly_10_year == "-",
                                                     NA))) %>% 
     select(-Name)
-  
+
   # write the clean data to the output_name argument provided
-  write_csv(ishares, path = "results/etf_metadata_ishares_clean.csv")
+  write_csv(ishares, path = output_name)
 
 }
 
