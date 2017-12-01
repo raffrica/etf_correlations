@@ -1,11 +1,11 @@
 #! /usr/bin/env Rscript
-# ishares_metadata_figure_generation_nav_3_year_returns.R
+# ishares_metadata_figure_generator_nav_3_year_returns.R
 # Daniel Raff Nov, 2017
 
 # This script reads in clean ishares metadata and then looks generates
 # a histogram of the distribution of 3 year NAVs. 
 
-# Usage: Rscript ishares_metadata_figure_generation_nav_3_year_returns.R
+# Usage: Rscript ishares_metadata_figure_generator_nav_3_year_returns.R
 
 library(tidyverse)
 library(forcats)
