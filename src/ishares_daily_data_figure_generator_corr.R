@@ -10,17 +10,27 @@
 
 suppressPackageStartupMessages(library(tidyverse))
 
+args <- commandArgs(trailingOnly = TRUE)
+input_file <- args[1]
+output_figures <- args[2]
 
-daily_corr <- read_csv("results/ishares_daily_corr.csv")
+main <- function(){
+  # read in daily corrlations between ETFs that beat the S&P 500 (using daily closing 
+  # prices since Jan 1 2016
+  daily_corr <- read_csv("results/ishares_daily_corr.csv")
+  
+  # Generate Figure
+  ggplot(daily_corr) +
+    geom_histogram(aes(x = corr), 
+                   fill = "#ABDDDE", 
+                   colour = "black",
+                   bins = 30) +
+    labs(x = "Correlation between Unique ETF Tickers that Outperformed the S&P 500",
+         y = "Count",
+         title = "Distribution of Correlations between ETF Tickers that Outperformed the S&P 500")
+  
+  ggsave("results/ishares_corr_hist.png")
+}
 
-# Generate Figure
-ggplot(daily_corr) +
-  geom_histogram(aes(x = corr), 
-                 fill = "#ABDDDE", 
-                 colour = "black",
-                 bins = 30) +
-  labs(x = "Correlation between Unique ETF Tickers that Outperformed the S&P 500",
-       y = "Count",
-       title = "Distribution of Correlations between ETF Tickers that Outperformed the S&P 500")
 
-ggsave("results/ishares_corr_hist.png")
+main()
