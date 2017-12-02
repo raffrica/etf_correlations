@@ -1,10 +1,10 @@
 # Driver Script
 # Daniel Raff Nov 2017
-# Runs iShares Analysis 
+# Runs iShares Analysis
 #
 # usage: make all
 
-all: results/ishares_corr_hist.png results/ishares_hist_etfs.png results/ishares_nav_3_year.png
+all: doc/ishares_analysis.Rmd
 
 ##########################################################
 # Data Wrangling
@@ -45,6 +45,13 @@ results/ishares_hist_etfs.png: src/ishares_metadata_figure_generator_nav_3_year_
 
 results/ishares_corr_hist.png: src/ishares_daily_data_figure_generator_corr.R results/ishares_daily_corr.csv
 	Rscript src/ishares_daily_data_figure_generator_corr.R results/ishares_daily_corr.csv results/ishares_corr_hist.png
+
+###########################################################
+# Docs
+###########################################################
+
+doc/ishares_analysis.Rmd: results/ishares_corr_hist.png results/ishares_hist_etfs.png results/ishares_nav_3_year.png
+	Rscript -e 'ezknitr::ezknit("src/ishares_analysis.Rmd", out_dir = "doc")'
 
 ###########################################################
 # Clean
