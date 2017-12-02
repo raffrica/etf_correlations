@@ -17,7 +17,7 @@ output_figures <- args[2]
 main <- function(){
   # read in daily corrlations between ETFs that beat the S&P 500 (using daily closing 
   # prices since Jan 1 2016
-  daily_corr <- read_csv("results/ishares_daily_corr.csv")
+  daily_corr <- read_csv(input_file)
   
   # Generate Figure
   ggplot(daily_corr) +
@@ -29,7 +29,7 @@ main <- function(){
          y = "Count",
          title = "Distribution of Correlations between ETF Tickers that Outperformed the S&P 500")
   
-  ggsave("results/ishares_corr_hist.png")
+  ggsave(output_figures)
 }
 
 
