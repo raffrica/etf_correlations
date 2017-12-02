@@ -9,6 +9,8 @@
 
 suppressPackageStartupMessages(library(tidyverse))
 suppressPackageStartupMessages(library(forcats))
+suppressPackageStartupMessages(library(scales))
+
 
 args <- commandArgs(trailingOnly = TRUE)
 input_file <- args[1]
@@ -35,10 +37,10 @@ main <- function(){
   ishares
   # Histogram of the NAVs monthly over past 3 years
   ggplot(ishares, 
-         aes(x = nav_monthly_3_year,
+         aes(x = nav_monthly_3_year / 100,
              fill = colour)) +
     geom_histogram(bins = 30, colour = "black") +
-    labs(x = "% Change of Net Asset Value per ETF Compounded Monthly over past 3 Years", 
+    labs(x = "Performance per ETF of Net Asset Value Compounded Monthly over the last 3 Years", 
          y = "Count", 
          title = "Distribution of ETFs based on NAV data") + 
     scale_fill_manual(values = c("Outperformed the S&P 500" = "#ECCBAE", 
@@ -46,7 +48,9 @@ main <- function(){
                       limits = c("Outperformed the S&P 500", 
                                  "Underperformed the S&P 500"),
                       name = "") +
-    theme(plot.title = element_text(hjust = 0.5, size = 16, face = "bold"))
+    scale_x_continuous(labels = percent) +
+    cowplot::theme_cowplot() + 
+    theme(plot.title = element_text(hjust = 0.5, size = 16, face = "bold")) 
   
   ggsave(output_figure)
 }
