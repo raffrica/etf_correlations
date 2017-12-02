@@ -1,10 +1,10 @@
 # Driver Script
 # Daniel Raff Nov 2017
-# What it does
+# Runs iShares Analysis 
 #
 # usage: make all
 
-all:
+all: results/ishares_corr_hist.png results/ishares_hist_etfs.png results/ishares_nav_3_year.png
 
 ##########################################################
 # Data Wrangling
@@ -20,7 +20,7 @@ results/ishares_nav_values_not_missing.csv: src/ishares_metadata_NAV_selection.R
 	Rscript src/ishares_metadata_NAV_selection.R results/etf_metadata_ishares_clean.csv results/ishares_nav_values_not_missing.csv
 
 # Selects only ETFs and their NAVs that beat the S&P 500 ETF in the past 3 years
-results/ishares_beat_s_and_p.csv: src/ishares_metadata_etfs_beat_s_and_p.R results/etf_metadata_ishares_clean.csv results/ishares_beat_s_and_p.csv
+results/ishares_beat_s_and_p.csv: src/ishares_metadata_etfs_beat_s_and_p.R results/etf_metadata_ishares_clean.csv
 	Rscript src/ishares_metadata_etfs_beat_s_and_p.R results/etf_metadata_ishares_clean.csv results/ishares_beat_s_and_p.csv
 
 # Queries Google Finance API for each ETF ticker and generates tidy tall df
@@ -45,6 +45,20 @@ results/ishares_hist_etfs.png: src/ishares_metadata_figure_generator_nav_3_year_
 
 results/ishares_corr_hist.png: src/ishares_daily_data_figure_generator_corr.R results/ishares_daily_corr.csv
 	Rscript src/ishares_daily_data_figure_generator_corr.R results/ishares_daily_corr.csv results/ishares_corr_hist.png
+
+###########################################################
+# Clean
+###########################################################
+clean:
+	rm -f results/ishares_nav_values_not_missing.csv
+	rm -f results/ishares_nav_values_not_missing.csv
+	rm -f results/ishares_beat_s_and_p.csv
+	rm -f results/ishares_daily.csv
+	rm -f results/ishares_daily_corr.csv
+	rm -f results/ishares_nav_3_year.png
+	rm -f results/ishares_hist_etfs.png
+	rm -f results/ishares_corr_hist.png
+
 
 
 # make ishares_report (NEED TO MAKE Rmd first!)
