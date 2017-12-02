@@ -16,37 +16,37 @@ output_figure <- args[2]
 
 main <- function(){
   # Read in clear ishares metadata
-  ishares <- read_csv(input_file)
+  ishares <- read_csv("results/etf_metadata_ishares_clean.csv")
   
   
   # From analysis generated in src/ishares_metadata_figure_generator_nav_values_not_missing.R
   # choosing nav_monthly_3_year as the returns to look at.
   ishares <- ishares %>% select(Ticker, nav_monthly_3_year)
-  
+
   # Now to exclude all the missing data (i.e. exclude ETFs that don't have data
   # from all of the last 3 years)  
   ishares <- ishares[!is.na(ishares$nav_monthly_3_year),]
   
-  ishares <- ishares %>% mutate(colour = factor(ifelse(nav_monthly_3_year == 10.72,
-                                     "S & P 500",
-                                     "Others")))
+  ishares <- ishares %>% mutate(colour = factor(ifelse(nav_monthly_3_year > 10.72,
+                                     "Outperformed the S&P 500",
+                                     "Underperformed the S&P 500")))
   
-  ishares$colour <- fct_inorder(ishares$colour)
-  
+  ishares$colour <- fct_infreq(ishares$colour)
+  ishares
   # Histogram of the NAVs monthly over past 3 years
-  # should add something to highlight bin with S&P 500
   ggplot(ishares, 
          aes(x = nav_monthly_3_year,
-             fill = colour),
-         colour = "black") +
-    geom_histogram(bins = 30) +
-    labs(x = "Monthly NAV over past 3 Years", 
+             fill = colour)) +
+    geom_histogram(bins = 30, colour = "black") +
+    labs(x = "% Change of Net Asset Value per ETF Compounded Monthly over past 3 Years", 
          y = "Count", 
-         title = "Histogram of ETFs based on NAV data",
-         legend = "S & P 500") + 
-    scale_fill_manual(values = c("S & P 500" = "#ECCBAE", 
-                                 "Others" = "#ABDDDE"),
-                      name = "")
+         title = "Distribution of ETFs based on NAV data") + 
+    scale_fill_manual(values = c("Outperformed the S&P 500" = "#ECCBAE", 
+                                 "Underperformed the S&P 500" = "#ABDDDE"),
+                      limits = c("Outperformed the S&P 500", 
+                                 "Underperformed the S&P 500"),
+                      name = "") +
+    theme(plot.title = element_text(hjust = 0.5, size = 16, face = "bold"))
   
   ggsave(output_figure)
 }
