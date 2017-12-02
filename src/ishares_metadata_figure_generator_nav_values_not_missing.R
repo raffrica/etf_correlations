@@ -36,7 +36,7 @@ main <- function(){
   nav_values_remaining <- cbind(nav_values_remaining, area_fill_select_3)
   nav_values_remaining <- as_data_frame(nav_values_remaining)
   
-  ggplot(nav_values_remaining, 
+  p<- ggplot(nav_values_remaining, 
          aes(x = time_elapse, 
              y = prop_etfs_remaining,
              fill = area_fill_select_3)) +
@@ -52,7 +52,7 @@ main <- function(){
     cowplot::theme_cowplot() + 
     theme(plot.title = element_text(hjust = 0.5, size = 16, face = "bold")) 
   
-  ggsave(output_figure)
+  ggsave(filename = output_figure, plot = p)
 }
 
 main()
