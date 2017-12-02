@@ -4,7 +4,7 @@
 #
 # usage: make all
 
-all: doc/ishares_analysis.Rmd
+all: doc/ishares_report.Rmd
 
 ##########################################################
 # Data Wrangling
@@ -50,8 +50,8 @@ results/ishares_corr_hist.png: src/ishares_daily_data_figure_generator_corr.R re
 # Docs
 ###########################################################
 
-doc/ishares_analysis.Rmd: results/ishares_corr_hist.png results/ishares_hist_etfs.png results/ishares_nav_3_year.png
-	Rscript -e 'ezknitr::ezknit("src/ishares_analysis.Rmd", out_dir = "doc")'
+doc/ishares_report.Rmd: results/ishares_corr_hist.png results/ishares_hist_etfs.png results/ishares_nav_3_year.png
+	Rscript -e 'ezknitr::ezknit("src/ishares_report.Rmd", out_dir = "doc")'
 
 ###########################################################
 # Clean
