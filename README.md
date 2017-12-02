@@ -25,26 +25,39 @@ be modified.
 ### Background
 I'm currently reading the book [Principles by Ray Dalio](https://www.principles.com/). In it he describes his method to successful investing, which largely involves writing 'principle'-based algorithms for trading. He extends this to principle-based algorithms for an idea meritocracy which is largely why I am reading the book. In one part of the book, Mr. Dalio describes a eureka moment in which he realizes he can invest in higher risk assets as long as they have low correlation with one another. Thus he is able to diversify his portfolio by means of correlation - if a risky investment fails, at least it won't be correlated with his other riskier investments and he will be able to leverage that risk for a higher overall return. 
 
-As someone with almost no investment knowledge but a growing statistical knowledge, I found this eureka moment fascinating. While my knowledge is very limited, I have been reading more about ETFs as a less risky asset class - although I won't go into detail about them. My thought was if I could create a portfolio of ETFs that minimize correlation among them, I could choose ETFs with higher risk (and reward).  
+As someone with almost no investment knowledge but a growing statistical knowledge, I found this eureka moment fascinating. While my knowledge is very limited, I have been reading more about Exchanged Traded Funds (ETFs) as a less risky asset class - although I won't go into detail about them. My thought was if I could create a portfolio of ETFs that minimize correlation among them, I could choose ETFs with higher risk (and reward).  
 
-### Goal
-My goal is to find a set of 5 High-Return / High-Risk ETFs that minimize the sum correlation between each ETF in the set. Ideally I will do this with exclusively Canadian ETFs (this makes sense with my Canadian Dollar for various reasons).  
+### Hypothesis
 
-#### Get the Data
+My hypothesis is that among ETFs that outperform the market (approximated by iShares S&P 500 ETF with ticker IVV) there will be significant variation in correlation. The reason this is a significant question is that choosing ETFs with different correlations between them but that all have high returns will create a better a more balanced portolio with less overall risk. 
 
-Firstly, I need to find the ETF Ticker's so that I can look up the historical data associated with each. For American Tickers I can use [MasterData](http://www.masterdata.com/helpfiles/etf_list.htm) and for Canadian Tickers [TMX](https://app.tmxmoney.com/etp/directory/). 
+The caveat here is that 1) I mostly don't know what I'm talking about. 2) These are just ETFs that are performing well in the current market. If the market were to significantly change these ETFs may all change as well. What I am *not* doing is calculating beta compared to the S&P 500 (which is a future direction that I'll describe below).  
 
-Second, I can use the `quantmod` package in R to load the historical data for each ETF in and save it as a variable. 
+#### What Data will I be looking at?
+
+While eventually I would like to be able to compare *all* ETF data, I will start with American ETF data from [iShares by BlackRock](https://www.ishares.com/us/products/etf-product-list#) as these are available, and the small size of the data simplifies development. 
+
+In later iterations I would like to look all American Tickers using the data from [MasterData](http://www.masterdata.com/helpfiles/etf_list.htm) and all Canadian Tickers using data from [TMX](https://app.tmxmoney.com/etp/directory/). 
 
 #### Questions for the Data
 
-Once I've read in the data, I will look only at ETFs with an annual return of greater than a certain amount. This will act as my surrogate for high-risk/high-reward (although I do understand that it's much [more nuanced](http://www.quantext.com/RiskandReturn.pdf). 
+Once I've read in the data, I will look only at ETFs with an annual return of greater than the S&P 500 ETF (IVV). This will act as my surrogate for high-risk/high-reward (although I do understand that it's much [more nuanced](http://www.quantext.com/RiskandReturn.pdf). 
 
-My first question is: what is a reasonable annual return to set as a threshold for ETFs (i.e. to only look at ETFs with an annual return of higher than that value). My hypothesis is that 10% annual return will be reasonable, in that I can still have a large enough proportion of total ETFs to work with - large enough being at least 1/3 of the total.  
+My first question is: When comparing ETFs to the S&P 500 ETF (IVV), which time cut-off should I set for the percent change in Net Asset Value of the ETF. The increase in one's investment can be thought of as the percent increase in the Net Asset Value. For the rest of my project I will refer to the percent increase in the Net Asset Values as NAV.
 
-My second question is: will there be low correlations between a set of 5 of the above high-risk ETFs. My hypothesis is that I will be able to find a set of 5 high-risk ETFs with a total correlation (between all) of less than 0.5 (this is somewhat arbitrary - I know a good target between any two assets is between -0.1 and 0.1.  
+> Net Asset Value: the value of a mutual fund that is reached by deducting the fund's liabilities from the market value of all of its shares and then dividing by the number of issued shares. (Google) 
+
+I can choose the NAVs per ETF with data extending back to the beginning of the year, 1 year ago, 3 years ago, 5 years ago, or 10 years ago. The problem here is that ETFs are very new, so if I extend too far back, I won't be able to compare many ETFs. On the other hand, 1 year may not be enough information to actually know if a given ETF outperforms the market.    
+
+My second question is: How many ETFs actually outperform the market? Is it half, or less? I would suspect half would outperform the market.  
+
+My third question is: Of the ETFs that outperform the market are there any that are not covariant? Namely is there high correlation amongst each pair of ETFs or are there lower correlation ETF pairs that can be used to balance a portfolio of ETFs.  
+
+Additional questions are beyond the scope of this project and will be included in the **Future Directions** section.
 
 #### Visualizations and Summaries
+
+To aid in choosing an time cut-off for how far back the NAV data must extend, I will compare the proportion of data available as compared to the largest dataset.
 
 To aid in choosing an annual return, I'll visualize all annual return percentages a histogram. This will help me decide where the cut off should be so that there are still a significant count of ETFs above the threshold. The threshold can be added as a vertical line onto the histogram with aesthetic mappings of x = percentage annual return, and y = counts.  
 
