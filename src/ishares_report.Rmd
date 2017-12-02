@@ -24,12 +24,13 @@ My hypothesis is that among ETFs that outperform the market (approximated by iSh
 
 The caveat here is that 1) I mostly don't know what I'm talking about. 2) These are just ETFs that are performing well in the current market. If the market were to significantly change these ETFs may all change as well. What I am *not* doing is calculating beta compared to the S&P 500 (which is a future direction that I'll describe below). 
 
-![ishares_nav_3_years](../results/ishares_nav_3_year.png)
+![Selection of NAV Time Cut-Off](../results/ishares_nav_3_year.png)
 
 
 
+![Distribution of NAVs Compared to S&P500](../results/ishares_hist_etfs.png)
 
 
-
+![Distribution of Correlations](../results/ishares_corr_hist.png)
 
 
