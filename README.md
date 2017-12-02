@@ -33,13 +33,13 @@ My hypothesis is that among ETFs that outperform the market (approximated by iSh
 
 The caveat here is that 1) I mostly don't know what I'm talking about. 2) These are just ETFs that are performing well in the current market. If the market were to significantly change these ETFs may all change as well. What I am *not* doing is calculating beta compared to the S&P 500 (which is a future direction that I'll describe below).  
 
-#### What Data will I be looking at?
+### What Data will I be looking at?
 
 While eventually I would like to be able to compare *all* ETF data, I will start with American ETF data from [iShares by BlackRock](https://www.ishares.com/us/products/etf-product-list#) as these are available, and the small size of the data simplifies development. 
 
 In later iterations I would like to look all American Tickers using the data from [MasterData](http://www.masterdata.com/helpfiles/etf_list.htm) and all Canadian Tickers using data from [TMX](https://app.tmxmoney.com/etp/directory/). 
 
-#### Questions for the Data
+### Questions for the Data
 
 Once I've read in the data, I will look only at ETFs with an annual return of greater than the S&P 500 ETF (IVV). This will act as my surrogate for high-risk/high-reward (although I do understand that it's much [more nuanced](http://www.quantext.com/RiskandReturn.pdf). 
 
@@ -55,7 +55,7 @@ My third question is: Of the ETFs that outperform the market are there any that 
 
 Additional questions are beyond the scope of this project and will be included in the **Future Directions** section.
 
-#### Visualizations and Summaries
+### Visualizations and Summaries
 
 For my first question: To aid in choosing an time cut-off for how far back the NAV data must extend, I will compare the proportion of data available as compared to the largest dataset.
 
@@ -65,7 +65,7 @@ For my third question: I will generate a few visualizations. Firstly, in additio
 
 Additionally, I will generate a histogram with the distribution of correlation among ETF pairs that outperformed the market.  
 
-#### Pipeline of analysis
+### Pipeline of analysis
 
 While each step will have multiple sub-steps, these are the broad strokes of the project.  
 
@@ -84,19 +84,15 @@ Next I will use a library for R called [quantmod](https://cran.r-project.org/web
 
 ### Future Ideas
 
-1) Linear Programming to Optimize a Portfolio. I would like to write a program that takes
-Quantitative correlation is not the whole picture. After completing the project above (including the linear programming) for all of Canadian ETFs, there are a few directions I could take it in. 
+These are ideas that I will try and complete, but likely won't have the time within the timeframes of the class.  
 
-1) I could tweak the constrains in the linear program to get different sets of 5, and then take this short list to people with financial experience and understanding to pick the best ETFs within them. 
+1) **Linear Programming to Optimize a Portfolio.** I would like to write a linear programming algorithm that can reduce the risk of an ETF portfolio. If someone were to choose a 1-2 ETFs (from within the ETFs that outperform the S&P 500), the linear program could fill the remainder of the set with ETFs designed to minimized the overall sum of correlations. In this model the objective function is minimizing correlations for 5 ETFs, and the constraints include: 5 ETFs, and already chosen ETFs.
 
-2) I could make a webapp for Canadian ETF correlations as it's an unmet need, even if it's just to generate the correlation matrix. 
+2) **Use betas.** While correlation between ETFs that outperformed the S&P 500 is my naive way to look at high risk ETFs, there are better, well documented methods. One which I began to research is looking at the beta as it relates to the market (i.e. the variation). Instead of looking at correlation, I can look at beta as it relates to the S&P 500. I can use this as a threshold instead of NAVs, as this is a better measure of risk. If the markets aren't performing well, something with a lower beta as it relates to S&P 500 will be good for hedging my bets. The problem is that this requires a high R<sup>2</sup> which is the opposite of what I'm optimizing for, so this would actually change the whole analysis and would mean I would try to try to optimize for mean beta to be 1 within the set, while trying to maximize for NAVs. My understanding of this topic is in its infancy, so this would require further reading.  
 
-3) Instead of looking at correlation, I can look at beta as it relates to the S&P 500. I can use this as a threshold instead of NAVs, as this is a better measure of risk. If the markets aren't performing well, something with a lower beta as it relates to S&P 500 will be good for hedging my bets. The problem is that this requires a high R<sup>2</sup> which is the opposite of what I'm optimizing for, so this would actually change the whole analysis and would mean I would try to try to optimize for mean beta to be 1 within the set, while trying to maximize for NAVs. 
-
-Write a linear programming algorithm to minimize the sum of correlations in a set of 5. The objective function will be to minimize the sum of correlations between 5 ETFs. I will create a correlation matrix with the optmial solution to minimizing correlation. This will compare well with the random result from Step 5. 
+3) **Develop this into a tool.** Read more and try and understand how this analysis can be developed into a personal finance tool. Additionally, while I found online websites that generate correlation matrices of American ETFs, I found none for Canadian ETFs. I could make a webapp for Canadian ETF correlations as it's an unmet need, even if it's just to generate the correlation matrix.  
 
 ### Potential Future Obstacles
-
 
 * Canadian ETF data is *less* available. With initial experimentation with `quantmod` it appears the google finance hidden API (based on a url for a csv download) doesn't work well for getting the Canadian ETF historical data. I may have to restrict the project to American ETFs (for the time being). If I have enough time, I could learn webscraping to get the existing data from google finance without using their hidden API.  
 
