@@ -48,7 +48,10 @@ main <- function(){
     scale_x_discrete(labels = c("Since January", "1", "3", "5", "10")) +
     scale_fill_manual(values = c("no" = "#ABDDDE", 
                                  "yes" = "#ECCBAE"),
-                      name = "Choice")
+                      name = "Choice") + 
+    cowplot::theme_cowplot() + 
+    theme(plot.title = element_text(hjust = 0.5, size = 16, face = "bold")) 
+  
   ggsave(output_figure)
 }
 
