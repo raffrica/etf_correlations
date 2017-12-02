@@ -57,43 +57,34 @@ Additional questions are beyond the scope of this project and will be included i
 
 #### Visualizations and Summaries
 
-To aid in choosing an time cut-off for how far back the NAV data must extend, I will compare the proportion of data available as compared to the largest dataset.
+For my first question: To aid in choosing an time cut-off for how far back the NAV data must extend, I will compare the proportion of data available as compared to the largest dataset.
 
-To aid in choosing an annual return, I'll visualize all annual return percentages a histogram. This will help me decide where the cut off should be so that there are still a significant count of ETFs above the threshold. The threshold can be added as a vertical line onto the histogram with aesthetic mappings of x = percentage annual return, and y = counts.  
+For my second question: I will show a distribution of NAVs of the available ETF data, and indicate which outperform the S&P 500 (the market).
 
-To understand overall correlations, I will generate a correlation matrix of the ETF subset above the certain threshold. I will generate two. One for computational purposes (see below), and the second for communication purposes - i.e. to show a matrix of 5 given etfs (as an example of what a set could look like). This kind of analysis is available for american ETFs at websites like: [Portfolio Visualizer - Asset Correlations](https://www.portfoliovisualizer.com/asset-correlations). At this website, I can add ETFs that I've already chosen and the program will return a correlation matrix.    
+For my third question: I will generate a few visualizations. Firstly, in addition to generating a correlation matrix for computational purposes (which I will not include visually) I will generate a second for communication purposes.
 
-#### Pipeline
+Additionally, I will generate a histogram with the distribution of correlation among ETF pairs that outperformed the market.  
+
+#### Pipeline of analysis
+
+While each step will have multiple sub-steps, these are the broad strokes of the project.  
 
 **Step 1**:   
-My first step is to get the data. Specifically I want a list of all ETFs and their corresponding tickers, so that I can then look up the historical prices for each ETF. I will get ETFs and their corresponding ticker names at [MasterData](http://www.masterdata.com/HelpFiles/ETF_List_Downloads/AllETFs.csv) (non-Canadian), [TMX](https://www.tmxmoney.com/en/pdf/ETF_List.xls) (Canadian), and even from ETF Funds themselves such as [iShares by BlackRock](https://www.ishares.com/us/products/etf-product-list#).  
+My first step is to get the data. Specifically I want a list of all ETFs and their corresponding tickers, so that I can then look up the historical prices for each ETF. I will get ETFs and their corresponding ticker names from [iShares by BlackRock](https://www.ishares.com/us/products/etf-product-list#). These data include metadata with percent change in NAV per ETF for up to 10 years.  
 
-**Step 2**:   
-Next I will use a library for R called [quantmod](https://cran.r-project.org/web/packages/quantmod/quantmod.pdf) which communicates with the API of google finance (among others such as alpha vantage) to get the historical price data for each ETF.  
+**Step 2**:
+Find the appropropriate time cut-off for NAV data. 
 
-**Step 3**:  
-I will calculate the annual return manually for each ETF, or I will use the metadata already provided from the iShares data (although this would restrict me to just iShares ETFs).  
+**Step 3**:   
+Select ETF tickers that outperformed the S&P 500. 
 
 **Step 4**:  
-Once I have the data for each ETF and the associated annual return, I will visualize the distribution of annual returns and choose a threshold. I will then subset the ETF tickers and only include those above that threshold.  
-
-**Step 5**:  
-With the ETF tickers that remain, I will use `quantmod` to create a vector of daily closing prices over the past 6 months for each ETF. I will then use these to generate a correlation matrix. With the goal in mind of generating a portfolio/set of 5 low correlation ETFs, I will show a correlation matrix of a random 5 ETFs that are not low correlation (as a 'before' for the next step). 
-
-**Step 6**:  
-Write a linear programming algorithm to minimize the sum of correlations in a set of 5. The objective function will be to minimize the sum of correlations between 5 ETFs. I will create a correlation matrix with the optmial solution to minimizing correlation. This will compare well with the random result from Step 5. 
-
-### Potential Problems
-
-A lot of this project is ambitious for me, so instead of pursuing the idealized version, I may have to do a smaller, less ambitious version. These are potential problems I may run into (or already have run into) and what I can do about it so that I still have a project.   
-
-* Canadian ETF data is *less* available. With initial experimentation with `quantmod` it appears the google finance hidden API (based on a url for a csv download) doesn't work well for getting the Canadian ETF historical data. I may have to restrict the project to American ETFs (for the time being). If I have enough time, I could learn websraping to get the existing data from google finance without using their hidden API.  
-* Calculating Annual Rate of Return manually is more work than just using the already calculated data set from iShares complete with metadata. As a starting point it makes more sense to just work with this data set.  
-* Linear Programming may be an ambitious addition within the time constraints. This project still has validity in just generating the correlation matrix and running some visualizations and analyses on returns for lower correlation ETFs as they relate to well correlated.  
+Next I will use a library for R called [quantmod](https://cran.r-project.org/web/packages/quantmod/quantmod.pdf) which communicates with the API of google finance (among others such as alpha vantage) to get the historical price data for the remaining ETFs.  
 
 
 ### Future Ideas
 
+1) Linear Programming to Optimize a Portfolio. I would like to write a program that takes
 Quantitative correlation is not the whole picture. After completing the project above (including the linear programming) for all of Canadian ETFs, there are a few directions I could take it in. 
 
 1) I could tweak the constrains in the linear program to get different sets of 5, and then take this short list to people with financial experience and understanding to pick the best ETFs within them. 
@@ -101,3 +92,12 @@ Quantitative correlation is not the whole picture. After completing the project 
 2) I could make a webapp for Canadian ETF correlations as it's an unmet need, even if it's just to generate the correlation matrix. 
 
 3) Instead of looking at correlation, I can look at beta as it relates to the S&P 500. I can use this as a threshold instead of NAVs, as this is a better measure of risk. If the markets aren't performing well, something with a lower beta as it relates to S&P 500 will be good for hedging my bets. The problem is that this requires a high R<sup>2</sup> which is the opposite of what I'm optimizing for, so this would actually change the whole analysis and would mean I would try to try to optimize for mean beta to be 1 within the set, while trying to maximize for NAVs. 
+
+Write a linear programming algorithm to minimize the sum of correlations in a set of 5. The objective function will be to minimize the sum of correlations between 5 ETFs. I will create a correlation matrix with the optmial solution to minimizing correlation. This will compare well with the random result from Step 5. 
+
+### Potential Future Obstacles
+
+
+* Canadian ETF data is *less* available. With initial experimentation with `quantmod` it appears the google finance hidden API (based on a url for a csv download) doesn't work well for getting the Canadian ETF historical data. I may have to restrict the project to American ETFs (for the time being). If I have enough time, I could learn webscraping to get the existing data from google finance without using their hidden API.  
+
+* Linear Programming may be an ambitious addition within the time constraints. This project still has validity in just generating the correlation matrix and running some visualizations and analyses on returns for lower correlation ETFs as they relate to well correlated. 
