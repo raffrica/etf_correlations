@@ -40,7 +40,7 @@ main <- function(){
          aes(x = nav_monthly_3_year / 100,
              fill = colour)) +
     geom_histogram(bins = 30, colour = "black") +
-    labs(x = "Performance per ETF of Net Asset Value Compounded Monthly over the last 3 Years", 
+    labs(x = "Performance per ETF by Net Asset Value", 
          y = "Count", 
          title = "Distribution of ETFs based on NAV data") + 
     scale_fill_manual(values = c("Outperformed the S&P 500" = "#ECCBAE", 

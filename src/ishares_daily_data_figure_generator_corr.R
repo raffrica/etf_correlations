@@ -22,12 +22,12 @@ main <- function(){
   # Generate Figure
   ggplot(daily_corr) +
     geom_histogram(aes(x = corr), 
-                   fill = "#ABDDDE", 
+                   fill = "#ECCBAE", 
                    colour = "black",
                    bins = 30) +
-    labs(x = "Correlation between Unique ETF Tickers that Outperformed the S&P 500",
+    labs(x = "Correlation between Pairs of ETFs that Outperformed the S&P 500",
          y = "Count",
-         title = "Distribution of Correlations between ETFs that Outperformed the S&P 500") +
+         title = "Distribution of Correlations between ETFs that \n Outperformed the S&P 500") +
     
     cowplot::theme_cowplot() + 
     theme(plot.title = element_text(hjust = 0.5, size = 16, face = "bold")) 

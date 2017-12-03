@@ -30,7 +30,7 @@ main <- function(){
   # New variable comparing each ETF to the s_and_p
   ishares <- ishares %>% mutate(compare_s_and_p = nav_monthly_3_year/10.72)
   
-  beats_s_and_p <- ishares[ishares$compare_s_and_p > 1.0,]
+  beats_s_and_p <- ishares[ishares$compare_s_and_p >= 1.0,]
   
   write_csv(beats_s_and_p, output_file)
 }
