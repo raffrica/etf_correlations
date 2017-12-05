@@ -16,6 +16,16 @@ be modified.
 
 `misc` directory: Anything that is of poor quality and/or doesn't fit in above directories.
 
+## Usage
+
+To run the project:    
+> `make all`  
+
+To clean previously outputted files:
+> `make clean`  
+
+
+![](out.png)  
 
 ---------
 ---------
