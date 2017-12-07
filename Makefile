@@ -27,9 +27,13 @@ results/ishares_beat_s_and_p.csv: src/ishares_metadata_etfs_beat_s_and_p.R resul
 results/ishares_daily.csv: src/ishares_metadata_to_daily_data.R results/ishares_beat_s_and_p.csv
 	Rscript src/ishares_metadata_to_daily_data.R results/ishares_beat_s_and_p.csv results/ishares_daily.csv
 
-# Generates correlations between ETFs based on daily closing prices
+# Generates correlations as a list between ETFs based on daily closing prices
 results/ishares_daily_corr.csv: src/ishares_daily_data_to_corr.R results/ishares_daily.csv
 	Rscript src/ishares_daily_data_to_corr.R results/ishares_daily.csv results/ishares_daily_corr.csv
+
+# Generates correlation matrix between ETFs based on daily closing prices (summary statistic)
+results/ishares_daily_corr_matrix.csv: src/ishares_daily_data_to_corr_matrix.R results/ishares_daily.csv
+	Rscript src/ishares_daily_data_to_corr_matrix.R results/ishares_daily.csv results/ishares_daily_corr_matrix.csv
 
 
 
@@ -50,7 +54,7 @@ results/ishares_corr_hist.png: src/ishares_daily_data_figure_generator_corr.R re
 # Docs
 ###########################################################
 
-doc/ishares_report.Rmd: results/ishares_corr_hist.png results/ishares_hist_etfs.png results/ishares_nav_3_year.png
+doc/ishares_report.Rmd: results/ishares_corr_hist.png results/ishares_hist_etfs.png results/ishares_nav_3_year.png results/ishares_daily_corr_matrix.csv
 	Rscript -e 'ezknitr::ezknit("src/ishares_report.Rmd", out_dir = "doc")'
 
 ###########################################################

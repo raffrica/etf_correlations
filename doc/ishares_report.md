@@ -8,6 +8,8 @@ output: github_document
 
 
 
+
+
 # iShares ETF Analysis  
 
 ## Background
@@ -28,18 +30,24 @@ To begin my analysis, I read in the metadata the ETF from iShares by Blackrock. 
 
 I can choose the NAVs per ETF with data extending back to the beginning of the year, 1 year ago, 3 years ago, 5 years ago, or 10 years ago. The problem here is that ETFs are quite new, so if I extend too far back, I won't be able to compare many ETFs. On the other hand, 1 year may not be enough information to actually know if a given ETF outperforms the market.
 
-![plot of chunk unnamed-chunk-1](../results/ishares_nav_3_year.png)
+![plot of chunk unnamed-chunk-2](../results/ishares_nav_3_year.png)
 
 The above figure shows the proportion of the ETF data as it relates to the complete data set (i.e. the Year to Date - or the data since January). ETF performance as measured by NAV compounded monthly over the past **3 years** seems to be a healthy medium, keeping approximately 75% of the available data, while being enough time to get a sense for how well the ETF performs.  
 
 ### Filtering for ETFs that Outperformed the S&P 500 
 
 
-![plot of chunk unnamed-chunk-2](../results/ishares_hist_etfs.png)
+![plot of chunk unnamed-chunk-3](../results/ishares_hist_etfs.png)
 
 ### Correlations between Pairs of High Growth ETFs
 
 
-![plot of chunk unnamed-chunk-3](../results/ishares_corr_hist.png)
+```
+## Error: '../results/ishares_daily_corr_matrix.csv' does not exist in current working directory ('/Users/danielraff/Masters of Data Science/Projects/etf_correlations').
+```
+
+
+
+![plot of chunk unnamed-chunk-5](../results/ishares_corr_hist.png)
 
 

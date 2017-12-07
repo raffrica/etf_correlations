@@ -10,6 +10,10 @@ knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE,
                       fig.width = 8, fig.height = 6)
 ```
 
+```{r}
+library(tidyverse)
+```
+
 
 # iShares ETF Analysis  
 
@@ -45,6 +49,13 @@ knitr::include_graphics('../results/ishares_hist_etfs.png')
 ```
 
 ### Correlations between Pairs of High Growth ETFs
+
+```{r}
+read_csv("../results/ishares_daily_corr_matrix.csv")
+
+
+```
+
 
 
 ```{r}
