@@ -43,7 +43,14 @@ The above figure shows the proportion of the ETF data as it relates to the compl
 
 
 ```
-## Error: '../results/ishares_daily_corr_matrix.csv' does not exist in current working directory ('/Users/danielraff/Masters of Data Science/Projects/etf_correlations').
+## # A tibble: 5 x 5
+##   Tickers        DGRO        EDEN      EIRL      EWGS
+##     <chr>       <dbl>       <dbl>     <dbl>     <dbl>
+## 1    DGRO 1.000000000 0.002625286 0.7855282 0.8976025
+## 2    EDEN 0.002625286 1.000000000 0.1852298 0.1159254
+## 3    EIRL 0.785528210 0.185229811 1.0000000 0.9309591
+## 4    EWGS 0.897602486 0.115925425 0.9309591 1.0000000
+## 5     EWN 0.906887791 0.119976781 0.9425844 0.9848346
 ```
 
 

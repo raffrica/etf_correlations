@@ -20,8 +20,7 @@ main <- function(){
   # generate correlation matrix
   correlation_matrix <- cor(daily_df, use = "na.or.complete")
   correlation_matrix <- as.data.frame(correlation_matrix)
-  
-  write_csv(correlation_matrix, output_file)
+  write.csv(x = correlation_matrix, file = output_file, row.names = TRUE, col.names = TRUE)
 }
 
 main()
