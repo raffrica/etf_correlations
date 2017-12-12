@@ -18,6 +18,3 @@ RUN apt-get update -qq \
     && install2.r --error \
         quantmod timetk ezknitr cowplot forcats tidyquant
 
-
-# Get the Github Repo
-RUN git clone https://github.com/raffrica/etf_correlations.git
