@@ -69,6 +69,8 @@ clean:
 	rm -f results/ishares_nav_3_year.png
 	rm -f results/ishares_hist_etfs.png
 	rm -f results/ishares_corr_hist.png
+	rm -f doc/ishares_report.md
+	rm -f doc/ishares_report.html
 
 
 
