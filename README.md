@@ -18,11 +18,25 @@ be modified.
 
 ## Usage
 
-To run the project:    
-> `make all`  
+Get Docker Image:
+> `docker pull raffrica/etf_docker`
+
+
+Clone the repo:
+> `git clone https://github.com/raffrica/etf_correlations.git`
+
+Run the Docker Image:
+> docker run -it --rm -v YOUR_LOCAL_DIRECTORY_OF_CLONED_REPO/:/home/etf_correlations raffrica/etf_docker  /bin/bash
+
+Change Directory:
+> `cd home/etf_correlations/`
 
 To clean previously outputted files:
 > `make clean`  
+
+To run the project:    
+> `make all`  
+
 
 
 ![](out.png)  
