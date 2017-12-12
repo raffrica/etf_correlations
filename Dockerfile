@@ -1,3 +1,11 @@
+# Driver Script
+# Daniel Raff Dec 2017
+# Runs a Docker Container
+#
+# usage: docker run -it --rm -v YOUR_LOCAL_DIRECTORY_OF_CLONED_REPO/:/home/etf_correlations raffrica/etf_docker  /bin/bash
+
+
+
 # Using tidyverse Rocker image as a base
 FROM rocker/tidyverse
 
@@ -17,4 +25,3 @@ RUN apt-get update -qq \
     && R CMD javareconf \
     && install2.r --error \
         quantmod timetk ezknitr cowplot forcats tidyquant
-
