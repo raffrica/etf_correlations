@@ -12,7 +12,7 @@ all: doc/ishares_report.Rmd
 
 # Cleans ETF metadata from iShares
 results/etf_metadata_ishares_clean.csv: src/ishares_metadata_cleaner.R
-	Rscript src/ishares_metadata_cleaner.R https://github.com/raffrica/etf_correlations/blob/master/data/etf_metadata_ishares.csv results/etf_metadata_ishares_clean.csv
+	Rscript src/ishares_metadata_cleaner.R https://raw.githubusercontent.com/raffrica/etf_correlations/master/data/etf_metadata_ishares.csv results/etf_metadata_ishares_clean.csv
 
 # Generates a summary of NAV values and the proportion of missing data
 # for NAV selection
