@@ -55,13 +55,13 @@ Here is a sample correlation matrix with the first 5 ETFs and their relationship
 
 ```
 ## # A tibble: 5 x 5
-##   Tickers        DGRO        EDEN      EIRL      EWGS
-##     <chr>       <dbl>       <dbl>     <dbl>     <dbl>
-## 1    DGRO 1.000000000 0.002625286 0.7855282 0.8976025
-## 2    EDEN 0.002625286 1.000000000 0.1852298 0.1159254
-## 3    EIRL 0.785528210 0.185229811 1.0000000 0.9309591
-## 4    EWGS 0.897602486 0.115925425 0.9309591 1.0000000
-## 5     EWN 0.906887791 0.119976781 0.9425844 0.9848346
+##   Tickers       DGRO       EDEN      EIRL      EWGS
+##     <chr>      <dbl>      <dbl>     <dbl>     <dbl>
+## 1    DGRO 1.00000000 0.01002097 0.7909749 0.9003781
+## 2    EDEN 0.01002097 1.00000000 0.1896908 0.1215176
+## 3    EIRL 0.79097489 0.18969080 1.0000000 0.9326408
+## 4    EWGS 0.90037811 0.12151759 0.9326408 1.0000000
+## 5     EWN 0.90832483 0.12465753 0.9434895 0.9846395
 ```
 
 I want to understand the distribution of ETF correlations among pairs, to see if it's possible to balance a portfolio of ETFs based on correlations among pairs. The distribution is a good start for this. 
